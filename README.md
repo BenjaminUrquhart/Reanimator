@@ -1,2 +1,2 @@
 # Reanimator
-A view for animations in RPGMaker MV games
+A viewer for animations in RPGMaker MV games
