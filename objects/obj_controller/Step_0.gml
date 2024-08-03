@@ -54,7 +54,7 @@ if index >= num_animations index = num_animations - 1
 // TODO: pausing, stepping forwards/backwards and changing playback speed
 
 
-if global.animations[index] && keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter) {
+if global.data_animations[index] && keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter) {
 	hold_dir = HoldDir.NONE
 	hold_timer = wait_time
 	audio_stop_all()
@@ -69,7 +69,7 @@ if global.animations[index] && keyboard_check_pressed(vk_space) || keyboard_chec
 		// TODO: better handing, maybe pause the animation
 		// if something goes wrong part way
 		try {
-			player = instance_create_layer(0, 0, "Flash", obj_animation_player, { anim: global.animations[index] })	
+			player = instance_create_layer(0, 0, "Flash", obj_animation_player, { anim: global.data_animations[index] })	
 		}
 		catch(e) {
 			show_debug_message(e.message)

@@ -50,6 +50,6 @@ for(var i = start; i < stop; i++) {
 	else {
 		draw_set_color(c_white)	
 	}
-	var anim = global.animations[i]
+	var anim = global.data_animations[i]
 	draw_text(10, height * (i - start) + buffer_space, anim ? (anim.name == "" ? "---" : anim.name) : "<null>")
 }

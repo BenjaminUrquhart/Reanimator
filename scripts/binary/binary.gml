@@ -7,6 +7,7 @@ function buffer_read_string(buff, length) {
 }
 
 function json_load(filename) {
+	assert(file_exists(filename), $"File not found: {filename}")
 	var file = buffer_load(filename)
 	var json = buffer_read(file, buffer_text)
 	buffer_delete(file)

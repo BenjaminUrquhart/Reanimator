@@ -14,19 +14,21 @@ function rpg_init(game, index = "www") {
 		// OMORI moment
 		if file_exists(RPG_GAME_BASE + "data/System.KEL") {
 			show_message("You must decrypt OMORI before using this tool on it")
-			return false;
+			return false
 		}
 		
-		do_throw($"Invalid game path: {game}")	
+		do_throw($"Invalid game path: {game}")
 	}
 	
-	var system = rpg_read_datafile("System.json")
-	RPG_ASSET_KEY = system[$ "encryptionKey"]
+	global.data_system = rpg_read_datafile("System.json")
+	RPG_ASSET_KEY = global.data_system[$ "encryptionKey"]
 	
-	if !is_undefined(RPG_ASSET_KEY) && string_length(RPG_ASSET_KEY) != 32 {
-		do_throw($"Invalid asset key length, expected 32 got " + string(string_length(RPG_ASSET_KEY)))
+	if !is_undefined(RPG_ASSET_KEY) {
+		expect(string_length(RPG_ASSET_KEY), 32, "Invalid asset key length")
 	}
-	return true;
+	
+	global.data_animations = rpg_read_datafile("Animations.json")
+	return true
 }
 
 
@@ -35,11 +37,14 @@ function rpg_is_cached(name) {
 	return variable_struct_exists(RPG_ASSET_CACHE, name)	
 }
 
-function rpg_get_cached_asset(name, func = undefined, args = []) {
+function rpg_get_cached_asset(name, func = undefined, args = undefined) {
 	if !rpg_is_cached(name) {
 		if is_method(func) || is_callable(func) {
 			// if asset is missing from cache, use the provided
-			// function and arguments to load it.
+			// function to fetch it
+			if !is_array(args) || array_length(args) == 0 {
+				args = [name]	
+			}
 			RPG_ASSET_CACHE[$ name] = script_execute_ext(func, args)
 		}
 		else {
@@ -104,18 +109,17 @@ function rpg_get_background_music(name) {
 // Sprites and related
 function rpg_load_image(filepath) {
 	return rpg_get_cached_asset(filepath, function(path) {
-		var result = rpg_check_encryption(path, true)
+		var result = rpg_find_asset(path, true)
 		var sprite = sprite_add(result.path, 1, false, false, 0, 0)
 		if !sprite_exists(sprite) {
 			do_throw($"Failed to load {path}")	
 		}
 		return sprite;
-	}, [filepath])
+	});
 }
 
-// RPGMaker sometimes "encrypts" its assets.
-// This is a little helper that can demangle them.
-function rpg_check_encryption(filepath, decrypt = false, asset = undefined) {
+// Gets the actual path, optionally demangling it so it can actually be used
+function rpg_find_asset(filepath, decrypt = false, asset = undefined) {
 	
 	// Usually the extension is missing, so we need to find it
 	if !file_exists(filepath) {
@@ -124,7 +128,7 @@ function rpg_check_encryption(filepath, decrypt = false, asset = undefined) {
 		while file != "" {
 			show_debug_message(file)
 			try {
-				var res = rpg_check_encryption(folder + "/" + file, decrypt, filepath)
+				var res = rpg_find_asset(folder + "/" + file, decrypt, filepath)
 				file_find_close()
 				return res;
 			}
@@ -169,14 +173,14 @@ function rpg_check_encryption(filepath, decrypt = false, asset = undefined) {
 			// Streamed audio requires the file to exist on disk
 			// so we write "decrypted" files back to disk temporarily
 			// These are cleaned up on next launch
-			var tempfile = $"{sha1_string_utf8(filepath)}.tmp"
+			var tempfile = game_save_id + $"{sha1_string_utf8(filepath)}.tmp"
 			buffer_seek(tmp, buffer_seek_start, 0)
-			buffer_save(tmp, game_save_id + tempfile)	
+			buffer_save(tmp, tempfile)	
 			buffer_delete(tmp)
 			return {
 				encrypted: true,
 				asset: asset,
-				path: game_save_id + tempfile
+				path: tempfile
 			}
 		}
 		return {

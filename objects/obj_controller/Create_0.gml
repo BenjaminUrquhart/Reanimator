@@ -6,7 +6,7 @@ enum HoldDir {
 
 index = 0
 buffer_space = 3
-num_animations = array_length(global.animations)
+num_animations = array_length(global.data_animations)
 
 player = noone
 

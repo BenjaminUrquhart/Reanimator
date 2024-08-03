@@ -6,7 +6,11 @@ function do_throw(msg) {
 }
 
 function expect(input, expected, err) {
-	if input != expected {
-		do_throw($"{err}: expected '{expected}' got '{input}'")	
+	assert(input == expected, $"{err}: expected '{expected}' got '{input}'")
+}
+
+function assert(value, err) {
+	if !value {
+		do_throw(err)	
 	}
 }

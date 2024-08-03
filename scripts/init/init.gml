@@ -30,16 +30,9 @@ if !rpg_init(folder) {
 ini_write_string("History", "previous", folder)
 ini_close()
 
+window_set_caption($"Reanimator (Game: {global.data_system[$ "gameTitle"]})")
+
 //rpg_init("C:\\Program Files (x86)\\Steam\\steamapps\\common\\In Stars And Time")
 //rpg_init("C:\\Program Files (x86)\\Steam\\steamapps\\common\\OMORI", "www_playtest")
-global.animations = rpg_read_datafile("Animations.json")
-/*
-var num = array_length(global.animations)
-for(var i = 0; i < num; i++) {
-	show_debug_message(global.animations[i])	
-}
-*/
 
-// TODO: process the animation at 15fps
-// instead of setting the entire program to run at that.
 game_set_speed(15, gamespeed_fps)

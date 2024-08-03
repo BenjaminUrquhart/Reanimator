@@ -11,16 +11,11 @@ function AudioSource(_type, _name) constructor {
 	// TODO: does this need to be here
 	// can just read it off the asset property
 	path = RPG_GAME_BASE + "audio/" + type + "/" + name;
-	asset = rpg_check_encryption(RPG_GAME_BASE + "audio/" + type + "/" + name, true)
+	asset = rpg_find_asset(RPG_GAME_BASE + "audio/" + type + "/" + name, true)
 	
 	show_debug_message($"loading: {path} {asset.path}")
 	
-	// TODO: does this data buffer need to stick around forever
-	// for OGG files? Probably not, I don't think there's anything
-	// I can do with them.
 	data = buffer_load(asset.path ?? path)
-	
-	freed = false;
 	
 	var header = buffer_read_string(data, 4)
 	
@@ -30,6 +25,8 @@ function AudioSource(_type, _name) constructor {
 		
 		format = AudioFormat.OGG	
 		sound = audio_create_stream(asset.path ?? path)
+		buffer_delete(data)
+		data = -1
 	}
 	// RIFF
 	else if header == "RIFF" {
@@ -83,28 +80,47 @@ function AudioSource(_type, _name) constructor {
 		buffer_seek(data, buffer_seek_start, 0)
 		var header_int = buffer_read(data, buffer_u32)
 		buffer_delete(data)
-		do_throw($"Unknown audio header {header} ({header_int})")
+		do_throw($"Unknown audio header {header} ({dec_to_hex(header_int)})")
+	}
+	
+	if !audio_exists(sound) {
+		if buffer_exists(data) {
+			buffer_delete(data)	
+		}
+		do_throw($"Failed to create sound from asset {path}")
 	}
 	
 	// debug purposes
 	static play = function() {
-		if freed {
-			do_throw($"audio use after free: {type}/{name}")
-		}
+		assert(audio_exists(sound), $"audio use after free: {type}/{name}")
 		return audio_play_sound(sound, 50, false)
 	}
 	
 	// this project doesn't use this yet
 	// since everything is cached forever
 	static free = function() {
-		freed = true
+		if !audio_exists(sound) {
+			return false
+		}
 		if format == AudioFormat.OGG {
-			audio_destroy_stream(sound)	
+			if !audio_destroy_stream(sound)	{
+				show_debug_message("Warning: failed to free sound asset " + path)
+				return false
+			}
 		}
 		else {
 			audio_free_buffer_sound(sound)
+			buffer_delete(data)
 		}
-		buffer_delete(data)
+		if asset.encrypted && asset.path {
+			// Deletes the temporary file, not the 
+			// obfuscated one from the game
+			
+			// Sanity check
+			assert(!string_pos(RPG_GAME_BASE, asset.path), $"Temporary file {asset.path} is within the game folder")
+			file_delete(asset.path)	
+		}
+		return true
 	}
 	
 }
