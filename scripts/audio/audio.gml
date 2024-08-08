@@ -93,6 +93,9 @@ function AudioSource(_type, _name) constructor {
 	// debug purposes
 	static play = function() {
 		assert(audio_exists(sound), $"audio use after free: {type}/{name}")
+		if format == AudioFormat.WAV {
+			assert(buffer_exists(data), $"data buffer freed for WAV audio: {type}/{name}")	
+		}
 		return audio_play_sound(sound, 50, false)
 	}
 	

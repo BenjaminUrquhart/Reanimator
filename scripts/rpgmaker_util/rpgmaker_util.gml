@@ -43,7 +43,7 @@ function rpg_get_cached_asset(name, func = undefined, args = undefined) {
 			// if asset is missing from cache, use the provided
 			// function to fetch it
 			if !is_array(args) || array_length(args) == 0 {
-				args = [name]	
+				args = [name]
 			}
 			RPG_ASSET_CACHE[$ name] = script_execute_ext(func, args)
 		}
@@ -83,27 +83,19 @@ function rpg_get_animation_sheet(name) {
 // Audio stuff
 // Also see the "audio" script
 function rpg_get_sound_effect(name) {
-	return rpg_get_cached_asset("se/" + name, function(name) {
-		return new SoundEffect(name);
-	}, [name]);
+	return rpg_get_cached_asset("se/" + name, construct, [SoundEffect, name]);
 }
 
 function rpg_get_music_effect(name) {
-	return rpg_get_cached_asset("me/" + name, function(name) {
-		return new MusicEffect(name);
-	}, [name]);
+	return rpg_get_cached_asset("me/" + name, construct, [MusicEffect, name]);
 }
 
 function rpg_get_background_effect(name) {
-	return rpg_get_cached_asset("bgs/" + name, function(name) {
-		return new BackgroundSound(name);
-	}, [name]);
+	return rpg_get_cached_asset("bgs/" + name, construct, [BackgroundSound, name]);
 }
 
 function rpg_get_background_music(name) {
-	return rpg_get_cached_asset("bgm/" + name, function(name) {
-		return new BackgroundMusic(name);
-	}, [name]);
+	return rpg_get_cached_asset("bgm/" + name, construct, [BackgroundMusic, name]);
 }
 
 // Sprites and related
