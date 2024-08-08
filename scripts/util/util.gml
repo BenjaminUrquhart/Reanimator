@@ -1,3 +1,5 @@
+#macro construct global.__new_gml_object__
+
 function file_get_folder(path) {
 	var index = string_length(path)
 	var byte = -1
@@ -33,13 +35,8 @@ function method_by_name(name) {
 	
 	return mappings[? name]
 }
-
-function construct(index) {
-	static _new = method_by_name("@@NewGMLObject@@")
-	var args = array_create(argument_count, -1)
-	for(var i = 0; i < argument_count; i++) {
-		args[i] = argument[i]	
-	}
-	return script_execute_ext(_new, args)
-}
 // Feather enable GM1041
+
+// This was originally a wrapper function then I went to bed
+// and remembered I can just do this instead.
+if !variable_global_exists("__new_gml_object__") construct = method_by_name("@@NewGMLObject@@")

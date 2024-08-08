@@ -2,6 +2,7 @@
 #macro RPG_ASSET_CACHE global.__rpg_asset_cache__
 #macro RPG_ASSET_KEY global.__rpg_asset_key__
 
+
 if !variable_global_exists("__rpg_asset_cache__") RPG_ASSET_CACHE = {}
 if !variable_global_exists("__rpg_asset_key__")   RPG_ASSET_KEY = undefined
 
