@@ -1,8 +1,10 @@
 #macro RPG_GAME_BASE global.__rpg_game_path__
 #macro RPG_ASSET_CACHE global.__rpg_asset_cache__
 #macro RPG_ASSET_KEY global.__rpg_asset_key__
+#macro RPG_USE_DUMMY_IMAGE global.__rpg_use_dummy_image__
 
 
+if !variable_global_exists("__rpg_use_dummy_image__") RPG_USE_DUMMY_IMAGE = false
 if !variable_global_exists("__rpg_asset_cache__") RPG_ASSET_CACHE = {}
 if !variable_global_exists("__rpg_asset_key__")   RPG_ASSET_KEY = undefined
 
@@ -29,6 +31,7 @@ function rpg_init(game, index = "www") {
 	}
 	
 	global.data_animations = rpg_read_datafile("Animations.json")
+	global.data_enemies = rpg_read_datafile("Enemies.json")
 	return true
 }
 
@@ -102,7 +105,20 @@ function rpg_get_background_music(name) {
 // Sprites and related
 function rpg_load_image(filepath) {
 	return rpg_get_cached_asset(filepath, function(path) {
-		var result = rpg_find_asset(path, true)
+		var result;
+		
+		try {
+			result = rpg_find_asset(path, true)
+		}
+		catch(e) {
+			if RPG_USE_DUMMY_IMAGE {
+				return spr_missing
+			}
+			show_debug_message(e.message)
+			array_foreach(e.stacktrace, show_debug_message)
+			throw e
+		}
+		
 		var sprite = sprite_add(result.path, 1, false, false, 0, 0)
 		if !sprite_exists(sprite) {
 			do_throw($"Failed to load {path}")	
@@ -139,7 +155,7 @@ function rpg_find_asset(filepath, decrypt = false, asset = undefined) {
 	// Check for the RPGMaker MV "encryption" header
 	var data = buffer_load(filepath)
 	var header = buffer_read(data, buffer_u64)
-	show_debug_message($"0x{dec_to_hex(header)} - 0x564D475052")
+	//show_debug_message($"0x{dec_to_hex(header)} - 0x564D475052")
 	// RPGMV (+3 null bytes)
 	if header == 0x564D475052 {
 		if decrypt {
@@ -166,7 +182,7 @@ function rpg_find_asset(filepath, decrypt = false, asset = undefined) {
 			// Streamed audio requires the file to exist on disk
 			// so we write "decrypted" files back to disk temporarily
 			// These are cleaned up on next launch
-			var tempfile = game_save_id + $"{sha1_string_utf8(filepath)}.tmp"
+			var tempfile = $"{game_save_id}{sha1_string_utf8(filepath)}.tmp"
 			buffer_seek(tmp, buffer_seek_start, 0)
 			buffer_save(tmp, tempfile)	
 			buffer_delete(tmp)

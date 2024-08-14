@@ -1,0 +1,3 @@
+RPGMaker MV seems to be quite limited so any decent game will have a bunch of plugins to add functionality.
+
+This section aims to help support some of these (sideview battlers for example)

@@ -13,7 +13,8 @@ player = noone
 cooldown = 0
 hold_timer = -1
 hold_dir = HoldDir.NONE
+cooldown_start = round(game_get_speed(gamespeed_fps) / 15)
 
 error_text = ""
 
-wait_time = 7
+wait_time = 7 * cooldown_start

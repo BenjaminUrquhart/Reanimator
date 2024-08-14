@@ -32,7 +32,6 @@ ini_close()
 
 window_set_caption($"Reanimator (Game: {global.data_system[$ "gameTitle"]})")
 
-//rpg_init("C:\\Program Files (x86)\\Steam\\steamapps\\common\\In Stars And Time")
-//rpg_init("C:\\Program Files (x86)\\Steam\\steamapps\\common\\OMORI", "www_playtest")
-
-game_set_speed(15, gamespeed_fps)
+// Should already be 60 but just in case
+game_set_speed(60, gamespeed_fps)
+gpu_set_tex_filter(false)

@@ -6,14 +6,6 @@ function buffer_read_string(buff, length) {
 	return out;
 }
 
-function json_load(filename) {
-	assert(file_exists(filename), $"File not found: {filename}")
-	var file = buffer_load(filename)
-	var json = buffer_read(file, buffer_text)
-	buffer_delete(file)
-	return json_parse(json);
-}
-
 /// @func   dec_to_hex(dec, len)
 ///
 /// @desc   Returns a given value as a string of hexadecimal digits.

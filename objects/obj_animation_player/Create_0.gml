@@ -22,9 +22,16 @@ flash_frames = 0
 flash_max_frames = 0
 flash_alpha = 1
 
+previous_frame = -1
+step_flash = true
+
 reset = function() {
 	for(var i = 0; i < num_sprites; i++) {
 		sprites[i].visible = false;	
 	}
-	current_frame = 0	
+	previous_frame = -1
+	current_frame = 0
+	step_flash = true
 }
+
+framerate = 15

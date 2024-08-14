@@ -13,6 +13,14 @@ function file_get_folder(path) {
 	return path;
 }
 
+function json_load(filename) {
+	assert(file_exists(filename), $"File not found: {filename}")
+	var file = buffer_load(filename)
+	var json = buffer_read(file, buffer_text)
+	buffer_delete(file)
+	return json_parse(json)
+}
+
 // It's cursed code time
 // Feather ignore GM1041
 function method_by_name(name) {

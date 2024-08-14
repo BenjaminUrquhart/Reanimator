@@ -1,12 +1,12 @@
 {
   "$GMScript":"",
-  "%Name":"rpgmaker_util",
+  "%Name":"RPGMakerUtil",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"rpgmaker_util",
+  "name":"RPGMakerUtil",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"RPGMaker",
+    "path":"folders/Scripts/RPGMaker.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

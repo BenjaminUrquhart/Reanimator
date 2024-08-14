@@ -15,7 +15,7 @@ if hold_dir == HoldDir.UP {
 			cooldown--
 			if cooldown <= 0 {
 				index--
-				cooldown = 1
+				cooldown = cooldown_start
 			}
 		}
 		else {
@@ -33,7 +33,7 @@ else if hold_dir == HoldDir.DOWN {
 			cooldown--
 			if cooldown <= 0 {
 				index++
-				cooldown = 1
+				cooldown = cooldown_start
 			}
 		}
 		else {
