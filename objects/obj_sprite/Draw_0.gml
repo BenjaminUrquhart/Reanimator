@@ -6,8 +6,10 @@ if sprite_exists(sprite_index) {
 	draw_clear_alpha(c_black, 0)
 	draw_set_alpha(1)
 	draw_sprite_part(sprite_index, 0, sx, sy, sw, sh, 0, 0)
-	//draw_set_color(c_red)
-	//draw_rectangle(1, 1, sw - 2, sh - 2, true)
+	if global.show_boxes {
+		draw_set_color(c_red)
+		draw_rectangle(1, 1, sw - 2, sh - 2, true)	
+	}
 	surface_reset_target()
 	
 	var drawx = x - (sw * image_xscale) / 2

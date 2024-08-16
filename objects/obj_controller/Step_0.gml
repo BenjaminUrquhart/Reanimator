@@ -1,3 +1,5 @@
+global.show_boxes = keyboard_check(vk_shift)
+
 if keyboard_check_pressed(vk_up) {
 	hold_dir = HoldDir.UP
 	hold_timer = wait_time

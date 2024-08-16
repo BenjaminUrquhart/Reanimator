@@ -53,3 +53,10 @@ for(var i = start; i < stop; i++) {
 	var anim = global.data_animations[i]
 	draw_text(10, height * (i - start) + buffer_space, anim ? (anim.name == "" ? "---" : anim.name) : "<null>")
 }
+
+if global.show_boxes {
+	var xx = ((room_width * 0.8) / 2) + (room_width / 5)
+	var yy = room_height / 2
+	draw_set_color(c_fuchsia)
+	draw_rectangle(xx - RPG_WINDOW_WIDTH / 2, yy - RPG_WINDOW_HEIGHT / 2, xx + RPG_WINDOW_WIDTH / 2, yy + RPG_WINDOW_HEIGHT / 2, true)
+}
