@@ -41,9 +41,9 @@
     {"id":{"name":"obj_animation_player","path":"objects/obj_animation_player/obj_animation_player.yy",},},
     {"id":{"name":"obj_controller","path":"objects/obj_controller/obj_controller.yy",},},
     {"id":{"name":"obj_enemy_animator","path":"objects/obj_enemy_animator/obj_enemy_animator.yy",},},
+    {"id":{"name":"obj_selector","path":"objects/obj_selector/obj_selector.yy",},},
     {"id":{"name":"obj_sprite","path":"objects/obj_sprite/obj_sprite.yy",},},
     {"id":{"name":"rm_animations","path":"rooms/rm_animations/rm_animations.yy",},},
-    {"id":{"name":"rm_enemies","path":"rooms/rm_enemies/rm_enemies.yy",},},
     {"id":{"name":"audio","path":"scripts/audio/audio.yy",},},
     {"id":{"name":"binary","path":"scripts/binary/binary.yy",},},
     {"id":{"name":"error","path":"scripts/error/error.yy",},},
@@ -57,7 +57,6 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"rm_animations","path":"rooms/rm_animations/rm_animations.yy",},},
-    {"roomId":{"name":"rm_enemies","path":"rooms/rm_enemies/rm_enemies.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

@@ -72,7 +72,52 @@ function rpg_ext_parse_notetags(notes) {
 			index++	
 		}
 	}
-	return tags
+	return {
+		tags: tags,
+		
+		get: function(key, or_else = undefined) {
+			var real_key = __lookup_key(key)
+			if is_undefined(real_key) {
+				return or_else
+			}
+			return tags[$ real_key] ?? or_else
+		},
+		
+		has: function(key) {
+			var real_key = __lookup_key(key)
+			return !is_undefined(real_key) && struct_exists(tags, real_key)	
+		},
+		
+		// Tags are case insensitive
+		__lookup_key: function(key) {
+			static table = {}
+			
+			if struct_exists(tags, key) {
+				return key
+			}
+			
+			var lower = string_lower(key)
+			if struct_exists(table, lower) {
+				return table[$ lower]	
+			}
+			
+			var names = struct_get_names(tags)
+			var len = array_length(names)
+			
+			for(var i = 0; i < len; i++) {
+				if string_lower(names[i]) == lower {
+					table[$ lower] = names[i]
+					return names[i]
+				}
+			}
+			
+			return undefined
+		},
+		
+		toString: function() {
+			return string(tags)	
+		}
+	}
 }
 
 function __read_note_tag(notes, start, note_len) {

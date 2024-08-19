@@ -26,6 +26,7 @@ enum SVActorState {
 	LAST
 }
 
+surface = -1
 
 if is_undefined(enemy) {
 	do_throw("No enemy provided")
@@ -33,23 +34,43 @@ if is_undefined(enemy) {
 	return;
 }
 
+// I would like to thank Omori for
+// its excessive use of sideview
+// battlers.
+
 tags = rpg_ext_parse_notetags(enemy.note)
 show_debug_message(tags)
 
-is_sv_actor = struct_exists(tags, "Sideview Battler")
+is_sv_actor = tags.has("Sideview Battler")
 
 if is_sv_actor {
-	actor = tags[$ "Sideview Battler"]
-	timer = tags[$ "Sideview Battler Speed"] ?? 12
+	actor = tags.get("Sideview Battler")
+	timer = tags.get("Sideview Battler Speed", 12)
 	sheet = rpg_load_image(RPG_GAME_BASE + "img/sv_actors/" + actor)
+	
+	num_frames = real(tags.get("Sideview Battler Frames", 3))
+	
+	var dimension_str = tags.get("Sideview Battler Size")
+	if dimension_str {
+		var split = string_split(dimension_str, ", ", true, 2)
+		width = real(split[0])
+		height = real(split[1])
+	}
+	else {
+		width = sprite_get_width(sheet) / (num_frames * 3)
+		height = sprite_get_height(sheet) / 6
+	}
 }
 else {
 	timer = 12
+	num_frames = 1
 	actor =  enemy.battlerName
 	sheet = rpg_load_image(RPG_GAME_BASE + "img/enemies/" + actor)	
+	
+	width = sprite_get_width(sheet)
+	height = sprite_get_height(sheet)
 }
 
-surface = -1
 previous_sheet = sheet
 
 previous_state = -1

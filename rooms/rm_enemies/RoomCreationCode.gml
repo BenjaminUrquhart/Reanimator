@@ -1,1 +1,0 @@
-instance_create_layer(0, 0, "Instances", obj_enemy_animator, { enemy: global.data_enemies[49] })

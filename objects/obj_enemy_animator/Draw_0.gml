@@ -42,12 +42,12 @@ if is_sv_actor {
 		draw_state(0, 0)
 	}
 	surface_reset_target()
-	draw_surface_ext(surface, (room_width - slidew * scale) / 2, (room_height - slideh * scale) / 2, scale, scale, 0, c_white, 1)
+	draw_surface_ext(surface, x - (slidew * scale) / 2, y - (slideh * scale) / 2, scale, scale, 0, c_white, 1)
 }
 else {
 	var ww = sprite_get_width(sheet)
 	var hh = sprite_get_height(sheet)
-	draw_sprite_ext(sheet, 0, (room_width - ww * scale) / 2, (room_height - hh * scale) / 2, scale, scale, 0, c_white, 1)	
+	draw_sprite_ext(sheet, 0, x - (ww * scale) / 2, y - (hh * scale) / 2, scale, scale, 0, c_white, 1)	
 }
 
 draw_set_alpha(1)
