@@ -21,5 +21,6 @@ update = function(menu) {
 	names = menu.names
 	count = array_length(names)
 	submit = menu.submit
+	name = menu.name
 	highlighted = -1
 }

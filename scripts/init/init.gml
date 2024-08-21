@@ -33,6 +33,7 @@ ini_close()
 window_set_caption($"Reanimator (Game: {global.data_system[$ "gameTitle"]})")
 
 global.show_boxes = false
+global.show_dummy = true
 
 // Should already be 60 but just in case
 game_set_speed(60, gamespeed_fps)

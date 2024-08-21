@@ -30,6 +30,7 @@
   "properties":[
     {"$GMObjectProperty":"v1","%Name":"submit","filters":[],"listItems":[],"multiselect":false,"name":"submit","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"undefined","varType":4,},
     {"$GMObjectProperty":"v1","%Name":"names","filters":[],"listItems":[],"multiselect":false,"name":"names","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":6,},
+    {"$GMObjectProperty":"v1","%Name":"name","filters":[],"listItems":[],"multiselect":false,"name":"name","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"Unnamed Menu","varType":2,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

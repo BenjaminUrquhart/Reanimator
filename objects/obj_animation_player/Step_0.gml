@@ -87,22 +87,33 @@ if floor(current_frame) != previous_frame {
 		if timing.frame == current_frame {
 			var se = timing.se
 			if se {
-				var sfx = rpg_get_sound_effect(se.name)
-				audio_play_sound(sfx.sound, 50, false, se.volume / 100, 0, se.pitch / 100)
+				try {
+					var sfx = rpg_get_sound_effect(se.name)
+					audio_play_sound(sfx.sound, 50, false, se.volume / 100, 0, se.pitch / 100)	
+				}
+				catch(e) {
+					with(obj_controller) submit_error(e)
+				}
 			}
-		
-			// TODO: other flash scopes, would require
-			// support for placing test dummies in the
-			// viewing area.
-			if timing.flashScope == 2 {
-				var color = timing.flashColor;
-				flash_frames = timing.flashDuration;
-				flash_max_frames = timing.flashDuration;
-				flash_color = make_color_rgb(color[0], color[1], color[2])
 			
-				// Flash alpha is neutered to avoid getting flashbanged
-				// when playing animations. Trust me, you probably want this
-				flash_alpha = (color[3] / 255) * 0.5;
+			// Flash alpha is neutered to avoid getting flashbanged
+			// when playing animations. Trust me, you probably want this
+			var alpha = 0.75;
+			var target = noone;
+			switch timing.flashScope {
+				case 0: break;                            // None
+				case 1: target = self.target; break;      // Target
+				case 2: target = id; alpha = 0.5; break;  // Screen
+				
+				default: show_debug_message($"Unsupported flash command: {timing}")
+			}
+			
+			with (target) {
+				var color = timing.flashColor
+				flash_frames = timing.flashDuration
+				flash_max_frames = timing.flashDuration
+				flash_color = make_color_rgb(color[0], color[1], color[2])
+				flash_alpha = (color[3] / 255) * alpha
 			}
 		}
 	}

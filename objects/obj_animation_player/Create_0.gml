@@ -14,16 +14,9 @@ num_frames = array_length(anim.frames)
 sprites = []
 num_sprites = 0
 
-playing = true
-
-
-flash_color = c_white
-flash_frames = 0
-flash_max_frames = 0
-flash_alpha = 1
+list_index = anim.id
 
 previous_frame = -1
-step_flash = true
 
 reset = function() {
 	for(var i = 0; i < num_sprites; i++) {

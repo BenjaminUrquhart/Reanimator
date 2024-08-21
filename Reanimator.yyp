@@ -39,6 +39,7 @@
     {"id":{"name":"fnt_main","path":"fonts/fnt_main/fnt_main.yy",},},
     {"id":{"name":"Notes","path":"notes/Notes/Notes.yy",},},
     {"id":{"name":"obj_animation_player","path":"objects/obj_animation_player/obj_animation_player.yy",},},
+    {"id":{"name":"obj_animator_parent","path":"objects/obj_animator_parent/obj_animator_parent.yy",},},
     {"id":{"name":"obj_controller","path":"objects/obj_controller/obj_controller.yy",},},
     {"id":{"name":"obj_enemy_animator","path":"objects/obj_enemy_animator/obj_enemy_animator.yy",},},
     {"id":{"name":"obj_selector","path":"objects/obj_selector/obj_selector.yy",},},
