@@ -77,10 +77,10 @@ if is_sv_actor {
 		// Single tag, convert to array of 1
 		// for convenience later
 		if is_string(motions[0]) {
-			with(tags) {
-				tags[$ __lookup_key("Sideview Battler Motion")] = [motions]
-			}
 			motions = [motions]
+			with(tags) {
+				tags[$ __lookup_key("Sideview Battler Motion")] = motions
+			}
 			len = 1
 		}
 		
