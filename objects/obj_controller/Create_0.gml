@@ -117,3 +117,4 @@ menu_count = array_length(menus)
 menu_positions = array_create(menu_count, 1)
 
 selector = instance_create_layer(0, 0, "Controller", obj_selector, menus[0])
+selector.index = 1

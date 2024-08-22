@@ -99,15 +99,12 @@ function AudioSource(_type, _name) constructor {
 		return audio_play_sound(sound, 50, false)
 	}
 	
-	// this project doesn't use this yet
-	// since everything is cached forever
 	static free = function() {
 		if !audio_exists(sound) {
 			return false
 		}
 		if format == AudioFormat.OGG {
 			if !audio_destroy_stream(sound)	{
-				show_debug_message("Warning: failed to free sound asset " + path)
 				return false
 			}
 		}

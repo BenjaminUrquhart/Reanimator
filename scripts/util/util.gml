@@ -45,6 +45,18 @@ function method_by_name(name) {
 }
 // Feather enable GM1041
 
+function file_find_with_ext(filepath) {
+	var out = []
+	var folder = file_get_folder(filepath)
+	var file = file_find_first(filepath + ".*", fa_none)
+	while file != "" {
+		array_push(out, $"{folder}/{file}")
+		file = file_find_next()
+	}
+	file_find_close()
+	return out
+}
+
 // This was originally a wrapper function then I went to bed
 // and remembered I can just do this instead.
 if !variable_global_exists("__new_gml_object__") construct = method_by_name("@@NewGMLObject@@")
