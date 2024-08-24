@@ -25,14 +25,11 @@ show_debug_message(tags)
 
 is_sv_actor = tags.has("Sideview Battler")
 
-sprite_key = ""
-
 try {
 	if is_sv_actor {
 		actor = tags.get("Sideview Battler")
 		timer = real(tags.get("Sideview Battler Speed", 12))
-		sprite_key = RPG_GAME_BASE + "img/sv_actors/" + actor
-		sheet = rpg_load_image(sprite_key)
+		sheet = rpg_load_image(RPG_GAME_BASE + "img/sv_actors/" + actor)
 	
 		sheetw = sprite_get_width(sheet)
 		sheeth = sprite_get_height(sheet)
@@ -125,8 +122,7 @@ try {
 		timer = 12
 		num_frames = 1
 		actor =  enemy.battlerName
-		sprite_key = rpg_enemy_find_sprite(actor)
-		sheet = rpg_load_image(sprite_key)
+		sheet = rpg_load_image(rpg_enemy_find_sprite(actor))
 		loop_modes = [LoopMode.SIMPLE]
 		width = sprite_get_width(sheet)
 		height = sprite_get_height(sheet)
@@ -140,8 +136,6 @@ catch(e) {
 	instance_destroy()
 	return
 }
-
-rpg_claim_assets([sprite_key])
 
 previous_sheet = sheet
 previous_state = -1

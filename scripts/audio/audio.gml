@@ -13,7 +13,7 @@ function AudioSource(_type, _name) constructor {
 	path = RPG_GAME_BASE + "audio/" + type + "/" + name;
 	asset = rpg_find_asset(RPG_GAME_BASE + "audio/" + type + "/" + name, true)
 	
-	show_debug_message($"loading: {path} {asset.path}")
+	show_debug_message($"loading: audio/{type}/{name} ({asset.path})")
 	
 	data = buffer_load(asset.path ?? path)
 	
@@ -112,7 +112,7 @@ function AudioSource(_type, _name) constructor {
 			audio_free_buffer_sound(sound)
 			buffer_delete(data)
 		}
-		if asset.encrypted && asset.path {
+		if asset.encrypted && !is_undefined(asset.path) {
 			// Deletes the temporary file, not the 
 			// obfuscated one from the game
 			

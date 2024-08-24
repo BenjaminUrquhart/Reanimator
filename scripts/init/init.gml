@@ -1,12 +1,4 @@
-// This may cause problems if another instance is running.
-// To that, I say "simply don't do that"
-// TODO: fix later
-var file = file_find_first(game_save_id + "*.tmp", fa_none)
-while file != "" {
-	file_delete(game_save_id + file)
-	file = file_find_next()
-}
-file_find_close() 
+rpg_clear_temp_files()
 
 
 // Ask which game to inspect

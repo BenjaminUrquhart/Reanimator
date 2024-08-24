@@ -47,6 +47,7 @@
     {"id":{"name":"rm_animations","path":"rooms/rm_animations/rm_animations.yy",},},
     {"id":{"name":"audio","path":"scripts/audio/audio.yy",},},
     {"id":{"name":"binary","path":"scripts/binary/binary.yy",},},
+    {"id":{"name":"cache","path":"scripts/cache/cache.yy",},},
     {"id":{"name":"error","path":"scripts/error/error.yy",},},
     {"id":{"name":"init","path":"scripts/init/init.yy",},},
     {"id":{"name":"NoteTags","path":"scripts/NoteTags/NoteTags.yy",},},
