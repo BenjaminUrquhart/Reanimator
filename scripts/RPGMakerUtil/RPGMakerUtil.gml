@@ -1,6 +1,6 @@
 #macro RPG_GAME_BASE global.__rpg_game_path__
 #macro RPG_ASSET_KEY global.__rpg_asset_key__
-#macro RPG_USE_DUMMY_IMAGE global.__rpg_use_dummy_image__
+#macro RPG_USE_DUMMY_IMAGE false
 
 // Forums say this can be changed
 // I cannot find the option in the IDE
@@ -12,8 +12,7 @@
 #macro RPG_WINDOW_HEIGHT 624
 
 
-if !variable_global_exists("__rpg_asset_key__")        RPG_ASSET_KEY = undefined
-if !variable_global_exists("__rpg_use_dummy_image__")  RPG_USE_DUMMY_IMAGE = false
+if !variable_global_exists("__rpg_asset_key__") RPG_ASSET_KEY = undefined
 
 
 // Set up some globals

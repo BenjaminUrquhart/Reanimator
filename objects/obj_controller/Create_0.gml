@@ -12,6 +12,7 @@ submit_error = function(e) {
 		show_debug_message(e.message)
 		show_debug_message(e.stacktrace)
 		submit_message($"Internal error:\n{e.message}", c_red)
+		//debug_event("ResourceCounts")
 }
 
 submit_message = function(msg, color = c_white) {
@@ -75,6 +76,11 @@ var anim_names = array_map(global.data_animations, mapper)
 var anim_callback = function(selector, index) {
 	if global.data_animations[index] {
 		audio_stop_all()
+		
+		with(target) {
+			flash_frames = 0
+			hide_frames = 0
+		}
 	
 		if instance_exists(player) && player.anim.id == index {
 			player.reset()
@@ -101,6 +107,11 @@ var anim_callback = function(selector, index) {
 var enemy_names = array_map(global.data_enemies, mapper)
 var enemy_callback = function(selector, index) {
 	if global.data_enemies[index] {
+		
+		with(target) {
+			flash_frames = 0
+			hide_frames = 0
+		}
 		
 		try {
 			with(obj_enemy_animator) instance_destroy()

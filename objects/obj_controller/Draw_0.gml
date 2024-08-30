@@ -3,7 +3,7 @@ draw_set_font(fnt_main)
 var len = ds_exists(message_queue, ds_type_list) ? ds_list_size(message_queue) : 0
 if len {
 	var yy = 10
-	for(var i = 0; i < len; i++) {
+	for(var i = len - 1; i >= 0; i--) {
 		var msg = message_queue[| i]
 		draw_set_alpha(msg.alpha)
 		draw_set_color(msg.color)
@@ -12,7 +12,7 @@ if len {
 			msg.timer--	
 		}
 		else {
-			msg.alpha -= 1 / (game_get_speed(gamespeed_fps) * 2)
+			msg.alpha -= 1 / (game_get_speed(gamespeed_fps) * 1.5)
 			if msg.alpha <= 0 {
 				ds_list_delete(message_queue, i)
 				len--

@@ -47,8 +47,8 @@ else if hold_dir == HoldDir.DOWN {
 }
 
 
-if index < 0 index = 0
-if index >= count index = count - 1
+if index < 0 index = count - 1
+if index >= count index = 0
 
 
 if keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter) {

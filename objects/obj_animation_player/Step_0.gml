@@ -1,6 +1,7 @@
 if floor(current_frame) != previous_frame {
 	
 	step_flash = true
+	step_hide = true
 	
 	previous_frame = floor(current_frame)
 	var remainder = current_frame - floor(current_frame)
@@ -92,31 +93,42 @@ if floor(current_frame) != previous_frame {
 					audio_play_sound(sfx.sound, 50, false, se.volume / 100, 0, se.pitch / 100)	
 				}
 				catch(e) {
+					show_debug_message(se)
 					with(obj_controller) submit_error(e)
 				}
 			}
 			
 			// Flash alpha is neutered to avoid getting flashbanged
 			// when playing animations. Trust me, you probably want this
+			var hide = false;
 			var alpha = 0.75;
 			var target = noone;
 			switch timing.flashScope {
-				case 0: break;                            // None
-				case 1: target = self.target; break;      // Target
-				case 2: target = id; alpha = 0.5; break;  // Screen
-				
+				case 0: break;                                    // None
+				case 1: target = self.target; break;              // Target
+				case 2: target = id; alpha = 0.5; break;          // Screen
+				case 3: target = self.target; hide = true; break; // Hide (it's not a flash though...)
 				default: show_debug_message($"Unsupported flash command: {timing}")
 			}
 			
 			with (target) {
-				var color = timing.flashColor
-				flash_frames = timing.flashDuration
-				flash_max_frames = timing.flashDuration
-				flash_color = make_color_rgb(color[0], color[1], color[2])
-				flash_alpha = (color[3] / 255) * alpha
+				if hide {
+					hide_frames = timing.flashDuration
+				}
+				else {
+					var color = timing.flashColor
+					flash_frames = timing.flashDuration
+					flash_max_frames = timing.flashDuration
+					flash_color = make_color_rgb(color[0], color[1], color[2])
+					flash_alpha = (color[3] / 255) * alpha	
+				}
 			}
 		}
 	}
 	current_frame += remainder
+}
+else {
+	step_flash = false
+	step_hide = false	
 }
 current_frame += framerate / game_get_speed(gamespeed_fps)

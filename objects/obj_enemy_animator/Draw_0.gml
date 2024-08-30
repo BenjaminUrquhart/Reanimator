@@ -55,18 +55,26 @@ else {
 }
 
 surface_reset_target()
-draw_surface_ext(surface, drawx, drawy, scale, scale, 0, c_white, 1)
 
-if flash_frames > 0 {
-	gpu_set_fog(true, c_white, 0, 0)
-	draw_surface_ext(surface, drawx, drawy, scale, scale, 0, c_white, flash_alpha * (flash_frames / flash_max_frames))
-	gpu_set_fog(false, c_white, 0, 0)
+if hide_frames < 1 {
+	draw_surface_ext(surface, drawx, drawy, scale, scale, 0, c_white, 1)
+
+	if flash_frames > 0 {
+		gpu_set_fog(true, c_white, 0, 0)
+		draw_surface_ext(surface, drawx, drawy, scale, scale, 0, c_white, flash_alpha * (flash_frames / flash_max_frames))
+		gpu_set_fog(false, c_white, 0, 0)
 	
-	if step_flash {
-		step_flash = false
-		flash_frames--
+		if step_flash {
+			step_flash = false
+			flash_frames--
+		}
 	}
 }
+else if step_hide {
+	step_hide = false
+	hide_frames--
+}
+
 
 draw_set_alpha(1)
 draw_set_color(c_red)
