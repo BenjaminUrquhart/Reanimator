@@ -11,3 +11,4 @@ for(var i = 0; i < num; i++) {
 }
 
 rpg_clear_temp_files(true)
+ds_list_destroy(message_queue)

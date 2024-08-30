@@ -10,8 +10,8 @@
   "name":"obj_sprite",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Animators",
+    "path":"folders/Objects/Animators.yy",
   },
   "parentObjectId":null,
   "persistent":false,

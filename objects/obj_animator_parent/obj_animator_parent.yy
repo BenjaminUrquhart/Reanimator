@@ -6,8 +6,8 @@
   "name":"obj_animator_parent",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Animators",
+    "path":"folders/Objects/Animators.yy",
   },
   "parentObjectId":null,
   "persistent":false,

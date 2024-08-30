@@ -54,4 +54,15 @@ if menu != prev {
 	selector.index = menu_positions[menu]
 }
 
+if keyboard_check_pressed(ord("G")) && instance_exists(player) && player.object_index == obj_enemy_animator {
+	if player.is_sv_actor {
+		submit_message("Exporting " + player.actor)
+		// defer a frame so the export message has time to be drawn
+		alarm[0] = 1
+	}
+	else {
+		submit_message("Cannot create GIF:\nCurrent enemy is not animated", c_orange)	
+	}
+}
+
 // TODO: pausing, stepping forwards/backwards and changing playback speed

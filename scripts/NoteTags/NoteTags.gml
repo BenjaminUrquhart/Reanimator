@@ -83,6 +83,10 @@ function rpg_ext_parse_notetags(notes) {
 			return tags[$ real_key] ?? or_else
 		},
 		
+		set: function(key, value) {
+			tags[$ __lookup_key(key) ?? key] = value
+		},
+		
 		has: function(key) {
 			var real_key = __lookup_key(key)
 			return !is_undefined(real_key) && struct_exists(tags, real_key)	

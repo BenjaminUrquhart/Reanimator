@@ -5,6 +5,9 @@
 // Forums say this can be changed
 // I cannot find the option in the IDE
 // or in System.json so uh yeah
+
+// Future me has found this is a thing in MZ not MV
+// which is close enough that I might support it
 #macro RPG_WINDOW_WIDTH 816
 #macro RPG_WINDOW_HEIGHT 624
 
@@ -136,10 +139,10 @@ function rpg_find_asset(filepath, decrypt = false, asset = undefined) {
 	// Usually the extension is missing, so we need to find it
 	if !file_exists(filepath) {
 		var paths = file_find_with_ext(filepath)
-		if !array_length(paths) {
+		var len = array_length(paths)
+		if !len {
 			do_throw($"Asset not found: {filepath}")
 		}
-		var len = array_length(paths)
 		for(var i = 0; i < len; i++) {
 			//show_debug_message(paths[i])
 			try {
@@ -183,7 +186,7 @@ function rpg_find_asset(filepath, decrypt = false, asset = undefined) {
 			
 			// Streamed audio requires the file to exist on disk
 			// so we write "decrypted" files back to disk temporarily
-			// These are cleaned up on next launch
+			// These are cleaned up on exit and next launch
 			buffer_seek(tmp, buffer_seek_start, 0)
 			buffer_save(tmp, tempfile)	
 			buffer_delete(tmp)

@@ -12,8 +12,8 @@
   "name":"obj_animation_player",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Animators",
+    "path":"folders/Objects/Animators.yy",
   },
   "parentObjectId":{
     "name":"obj_animator_parent",
