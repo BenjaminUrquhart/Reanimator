@@ -88,6 +88,7 @@ if floor(current_frame) != previous_frame {
 		if timing.frame == current_frame {
 			var se = timing.se
 			if se {
+				var name = $"{se.name}"
 				try {
 					var sfx = rpg_get_sound_effect(se.name)
 					audio_play_sound(sfx.sound, 50, false, se.volume / 100, 0, se.pitch / 100)	
@@ -95,6 +96,20 @@ if floor(current_frame) != previous_frame {
 				catch(e) {
 					show_debug_message(se)
 					with(obj_controller) submit_error(e)
+					
+					// This looks nonsensical but this project triggers a garbage collection bug
+					// in OMORI and this is a way to detect it. I'm not entirely sure what causes it
+					// but in OMORI it happens if you play "EMS CHEESE" halfway, switch to anther animation
+					// then very quickly switch back to EMS CHEESE. You may need to try it a few times.
+					// Maybe it's the try-catch?
+					if name != se.name {
+						show_debug_message($"{name} {se.name}")
+						with(obj_controller) {
+							repeat(5) submit_message("!!! GC BUG DETECTED PLEASE RESTART THE PROGRAM !!!", c_orange)
+						}
+						instance_destroy()
+						return
+					}
 				}
 			}
 			
