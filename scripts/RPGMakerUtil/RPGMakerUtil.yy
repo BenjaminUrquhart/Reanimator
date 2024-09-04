@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"RPGMakerUtil",
   "isCompatibility":false,
   "isDnD":false,

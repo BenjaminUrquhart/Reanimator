@@ -88,6 +88,7 @@ if floor(current_frame) != previous_frame {
 		if timing.frame == current_frame {
 			var se = timing.se
 			if se {
+				// see catch statement
 				var name = $"{se.name}"
 				try {
 					var sfx = rpg_get_sound_effect(se.name)
